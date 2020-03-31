@@ -9,6 +9,7 @@ export class InfoPaginaService {
 
   info: InfoPagina = {};
   equipo: any = [];
+  cargando = true;
 
   constructor(private http: HttpClient) {
 
@@ -24,9 +25,13 @@ export class InfoPaginaService {
   }
 
   private cargarEquipo() {
-    this.http.get('https://angular-html-8ca6d.firebaseio.com/equipo.json')
-    .subscribe( (resp: any[]) => {
-      this.equipo = resp;
-    });
+
+    setTimeout(() => {
+      this.http.get('https://angular-html-8ca6d.firebaseio.com/equipo.json')
+      .subscribe( (resp: any[]) => {
+        this.equipo = resp;
+        this.cargando = false;
+      });
+    }, 500);
   }
 }
